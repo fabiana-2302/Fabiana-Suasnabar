@@ -1,0 +1,743 @@
+<!DOCTYPE html>
+<html lang="es" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Fabiana Suasnabar | Personal Web</title>
+
+    <!-- Google Fonts: Plus Jakarta Sans (Títulos) & Poppins (Cuerpo) -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@600;700;800;900&family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+
+    <!-- FontAwesome Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+
+    <script>
+        tailwind.config = {
+            darkMode: 'class',
+            theme: {
+                extend: {
+                    colors: {
+                        ocean: {
+                            100: '#e0f2fe',
+                            400: '#38bdf8',
+                            500: '#0ea5e9',
+                            600: '#0284c7'
+                        },
+                        coral: {
+                            400: '#fb7185',
+                            500: '#f43f5e'
+                        },
+                        sand: {
+                            300: '#fde047',
+                            400: '#facc15'
+                        },
+                        pinkSweet: '#f472b6',
+                        melonSweet: '#ffedd5'
+                    },
+                    fontFamily: {
+                        sans: ['Poppins', 'sans-serif'],
+                        heading: ['Plus Jakarta Sans', 'sans-serif']
+                    }
+                }
+            }
+        }
+    </script>
+
+    <style>
+        /* Cursor personalizado */
+        * {
+            cursor: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='24' height='24' viewBox='0 0 24 24' fill='%23f43f5e'><path d='M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z'/></svg>"), auto !important;
+        }
+
+        h1, h2, h3, h4, .font-heading {
+            font-family: 'Plus Jakarta Sans', sans-serif;
+        }
+
+        /* Glassmorphism Dinámico Día / Noche */
+        .glassmorphism {
+            background: rgba(255, 255, 255, 0.85);
+            backdrop-filter: blur(14px);
+            -webkit-backdrop-filter: blur(14px);
+            border: 1px solid rgba(255, 255, 255, 0.6);
+        }
+
+        .dark .glassmorphism {
+            background: rgba(15, 23, 42, 0.85);
+            backdrop-filter: blur(14px);
+            -webkit-backdrop-filter: blur(14px);
+            border: 1px solid rgba(56, 189, 248, 0.2);
+            box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.37);
+        }
+
+        /* Hero Background Combinado (Foto de playa + Gradiente Vivo) */
+        .hero-bg-day {
+            background-image: linear-gradient(135deg, rgba(14, 165, 233, 0.75) 0%, rgba(244, 63, 94, 0.65) 50%, rgba(253, 224, 71, 0.75) 100%), 
+                              url('https://images.unsplash.com/photo-1507525428034-b723cf961d3e?auto=format&fit=crop&w=1920&q=80');
+            background-size: cover;
+            background-position: center;
+            background-blend-mode: overlay;
+        }
+
+        .dark .hero-bg-day {
+            background-image: linear-gradient(135deg, rgba(15, 23, 42, 0.92) 0%, rgba(30, 27, 75, 0.90) 50%, rgba(15, 23, 42, 0.95) 100%), 
+                              url('https://images.unsplash.com/photo-1507525428034-b723cf961d3e?auto=format&fit=crop&w=1920&q=80');
+            background-blend-mode: multiply;
+        }
+
+        /* EFECTOS HOVER ESTILO KARAK HANDCRAFTS */
+        .karak-tile {
+            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            position: relative;
+            overflow: hidden;
+            border: 2px solid transparent;
+        }
+
+        .karak-tile::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.8), transparent);
+            transition: left 0.6s ease;
+        }
+
+        .dark .karak-tile::before {
+            background: linear-gradient(90deg, transparent, rgba(56, 189, 248, 0.3), transparent);
+        }
+
+        .karak-tile:hover::before {
+            left: 100%;
+        }
+
+        .karak-tile:hover {
+            transform: translateY(-12px) scale(1.03) rotate(0.5deg);
+            border-color: rgba(14, 165, 233, 0.8);
+            box-shadow: 0 25px 40px -10px rgba(14, 165, 233, 0.35), 0 10px 20px -5px rgba(244, 63, 94, 0.3);
+        }
+
+        .karak-tile:hover .karak-icon {
+            transform: rotate(22deg) scale(1.3);
+            transition: transform 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
+        }
+
+        /* EFECTOS HOVER ESTILO TIGER MARKETING */
+        .tiger-card {
+            transition: all 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
+            border: 2px solid transparent;
+            position: relative;
+        }
+
+        .tiger-card:hover {
+            border-color: #f43f5e;
+            transform: translateY(-10px) scale(1.04);
+            box-shadow: 0 20px 35px -10px rgba(244, 63, 94, 0.4);
+            background: linear-gradient(135deg, rgba(255,255,255,1) 0%, rgba(254,205,211,0.6) 100%);
+        }
+
+        .dark .tiger-card:hover {
+            background: linear-gradient(135deg, rgba(30,41,59,1) 0%, rgba(30,27,75,0.9) 100%);
+            border-color: #38bdf8;
+            box-shadow: 0 20px 35px -10px rgba(56, 189, 248, 0.3);
+        }
+
+        .tiger-card .tiger-badge {
+            opacity: 0;
+            transform: translateY(12px) scale(0.85);
+            transition: all 0.35s ease;
+        }
+
+        .tiger-card:hover .tiger-badge {
+            opacity: 1;
+            transform: translateY(0) scale(1);
+        }
+
+        /* BOTONES CON OLA LÍQUIDA SVG */
+        .wave-btn {
+            position: relative;
+            overflow: hidden;
+            z-index: 1;
+            transition: all 0.4s ease;
+        }
+
+        .wave-btn::before {
+            content: '';
+            position: absolute;
+            bottom: -100%;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(180deg, rgba(14, 165, 233, 0.9) 0%, rgba(244, 63, 94, 0.9) 100%);
+            border-radius: 50% 50% 0 0;
+            transition: all 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+            z-index: -1;
+        }
+
+        .wave-btn:hover::before {
+            bottom: 0;
+            border-radius: 0;
+        }
+
+        .wave-btn:hover {
+            transform: translateY(-3px);
+            color: #ffffff !important;
+            box-shadow: 0 12px 25px -5px rgba(14, 165, 233, 0.5);
+        }
+
+        /* INTRO ANIMADA WAVE DROP */
+        #intro-wave {
+            transition: transform 1.2s cubic-bezier(0.77, 0, 0.175, 1);
+        }
+
+        #intro-wave.slide-up {
+            transform: translateY(-100%);
+        }
+
+        /* CARRUSEL BUFFER INFINITO */
+        .animate-buffer-scroll {
+            display: flex;
+            width: max-content;
+            animation: scroll-infinite 24s linear infinite;
+        }
+
+        @keyframes scroll-infinite {
+            0% { transform: translateX(0); }
+            100% { transform: translateX(-50%); }
+        }
+
+        .buffer-carousel:hover .animate-buffer-scroll {
+            animation-play-state: paused;
+        }
+
+        /* HUELLITAS ROSADITAS DE PERRO Y CORAZONES FLOTANTES */
+        .floating-paw {
+            position: fixed;
+            pointer-events: none;
+            animation: floatPaw 2s cubic-bezier(0.25, 1, 0.5, 1) forwards;
+            z-index: 9999;
+        }
+
+        @keyframes floatPaw {
+            0% { opacity: 1; transform: translateY(0) scale(0.8) rotate(0deg); }
+            50% { opacity: 0.9; transform: translateY(-70px) scale(1.3) rotate(-15deg); }
+            100% { opacity: 0; transform: translateY(-140px) scale(1.6) rotate(15deg); }
+        }
+
+        /* COFRE DE RECUERDOS (SOBRES 3D) */
+        .memory-card {
+            perspective: 1000px;
+        }
+        .memory-inner {
+            transition: transform 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+            transform-style: preserve-3d;
+        }
+        .memory-card:hover .memory-inner {
+            transform: rotateY(180deg);
+        }
+        .memory-front, .memory-back {
+            backface-visibility: hidden;
+            -webkit-backface-visibility: hidden;
+        }
+        .memory-back {
+            transform: rotateY(180deg);
+        }
+    </style>
+</head>
+<body class="bg-slate-50 dark:bg-slate-900 text-slate-800 dark:text-slate-100 font-sans transition-colors duration-500 overflow-x-hidden">
+
+    <!-- CORTINA INTRO: OLA HORIZONTAL DESCENDENTE -->
+    <div id="intro-wave" class="fixed inset-0 z-[100] flex flex-col items-center justify-center bg-gradient-to-b from-ocean-500 via-coral-400 to-sand-300 text-white shadow-2xl">
+        <div class="text-center px-4">
+            <h2 class="text-4xl sm:text-6xl font-extrabold font-heading tracking-tight mb-2">¡Hola, Fabiana! 🌊</h2>
+            <p class="text-lg sm:text-xl font-medium tracking-wide">dream big, laugh hard and love so much</p>
+        </div>
+        <div class="absolute bottom-0 w-full overflow-hidden leading-none">
+            <svg class="relative block w-full h-24 text-slate-50 dark:text-slate-900 fill-current" viewBox="0 0 1200 120" preserveAspectRatio="none">
+                <path d="M0,0 C150,90 350,-40 500,60 C650,160 900,10 1200,40 L1200,120 L0,120 Z"></path>
+            </svg>
+        </div>
+    </div>
+
+    <!-- BARRA DE NAVEGACIÓN -->
+    <nav class="fixed top-0 left-0 w-full z-50 glassmorphism transition-all duration-300 shadow-sm">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex items-center justify-between h-20">
+                <a href="#hero" class="flex items-center gap-2 group">
+                    <span class="text-2xl font-black font-heading tracking-wider bg-gradient-to-r from-ocean-500 via-coral-500 to-sand-400 bg-clip-text text-transparent group-hover:scale-105 transition-transform">
+                        FABIANA SUASNABAR
+                    </span>
+                    <i class="fa-solid fa-sparkles text-coral-500 text-xs animate-pulse"></i>
+                </a>
+
+                <div class="hidden lg:flex items-center space-x-6 text-xs font-bold uppercase tracking-wider">
+                    <a href="#sobre-mi" class="hover:text-ocean-500 transition">Sobre Mí</a>
+                    <a href="#gustos" class="hover:text-ocean-500 transition">Gustos</a>
+                    <a href="#galeria" class="hover:text-ocean-500 transition">Galería</a>
+                    <a href="#cofre" class="hover:text-ocean-500 transition">Cofre de Recuerdos</a>
+                    <a href="#vibes" class="hover:text-ocean-500 transition">Vibes Station</a>
+                    <a href="#neguita" class="hover:text-ocean-500 transition">Neguita 🐶</a>
+                </div>
+
+                <div class="flex items-center space-x-3">
+                    <button onclick="triggerWaveIntro()" class="wave-btn px-4 py-2 rounded-full text-xs font-bold bg-ocean-100 dark:bg-slate-800 text-ocean-600 dark:text-ocean-400 border border-ocean-400/30">
+                        Ver Ola 🌊
+                    </button>
+                    <!-- BOTÓN CAMBIO DÍA / NOCHE REAL -->
+                    <button id="theme-toggle" class="p-2.5 rounded-full bg-sand-300 dark:bg-slate-700 text-slate-800 dark:text-amber-300 hover:scale-110 transition shadow-md">
+                        <i id="theme-icon" class="fa-solid fa-sun text-lg"></i>
+                    </button>
+                    <button id="mobile-menu-btn" class="lg:hidden p-2 text-2xl focus:outline-none">
+                        <i class="fa-solid fa-bars"></i>
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Menú Móvil -->
+        <div id="mobile-menu" class="hidden lg:hidden glassmorphism px-4 pt-2 pb-4 space-y-2 border-t dark:border-slate-800">
+            <a href="#sobre-mi" class="block py-2 text-xs font-bold uppercase">Sobre Mí</a>
+            <a href="#gustos" class="block py-2 text-xs font-bold uppercase">Gustos</a>
+            <a href="#galeria" class="block py-2 text-xs font-bold uppercase">Galería</a>
+            <a href="#cofre" class="block py-2 text-xs font-bold uppercase">Cofre de Recuerdos</a>
+            <a href="#vibes" class="block py-2 text-xs font-bold uppercase">Vibes Station</a>
+            <a href="#neguita" class="block py-2 text-xs font-bold uppercase">Neguita 🐶</a>
+        </div>
+    </nav>
+
+    <!-- HERO SECTION -->
+    <section id="hero" class="min-h-screen hero-bg-day pt-32 pb-16 flex items-center justify-center relative overflow-hidden">
+        <div class="max-w-4xl mx-auto px-4 text-center relative z-10 my-auto">
+            <span class="px-4 py-1.5 rounded-full text-xs font-bold tracking-wider bg-white/90 dark:bg-slate-800/90 text-coral-500 dark:text-coral-400 border border-coral-400/30 inline-block mb-4 shadow">
+                14 Años • 3ro Sec • Lima, Perú
+            </span>
+            <h1 class="text-4xl sm:text-6xl font-extrabold font-heading tracking-tight mb-4 text-slate-900 dark:text-white">
+                ¡Hola! Soy <span class="bg-clip-text text-transparent bg-gradient-to-r from-ocean-500 via-coral-400 to-sand-400">Fabiana Suasnabar</span>
+            </h1>
+            <p class="text-xl sm:text-2xl text-slate-800 dark:text-slate-200 max-w-2xl mx-auto mb-8 font-semibold leading-relaxed">
+                "dream big, laugh hard and love so much"
+            </p>
+
+            <div class="flex flex-wrap justify-center gap-4 mb-10">
+                <a href="#sobre-mi" class="wave-btn px-7 py-3 rounded-full bg-ocean-500 text-white font-bold text-xs uppercase tracking-wider shadow-lg">
+                    Conóceme Más <i class="fa-solid fa-arrow-down ml-2"></i>
+                </a>
+                <a href="#cofre" class="wave-btn px-7 py-3 rounded-full bg-white dark:bg-slate-800 text-slate-800 dark:text-white font-bold text-xs uppercase tracking-wider shadow">
+                    Abrir Recuerdos ✨
+                </a>
+            </div>
+
+            <!-- REPRODUCTOR DE MÚSICA CON AUDIO REAL -->
+            <div class="max-w-md mx-auto glassmorphism p-4 rounded-2xl shadow-2xl text-left border border-white/80 dark:border-slate-700">
+                <div class="flex items-center space-x-4">
+                    <div class="w-12 h-12 rounded-xl bg-gradient-to-tr from-ocean-500 to-coral-400 flex items-center justify-center text-white text-xl shadow">
+                        <i id="music-disc" class="fa-solid fa-compact-disc"></i>
+                    </div>
+                    <div class="flex-1 min-w-0">
+                        <p class="text-[10px] text-ocean-600 dark:text-ocean-400 font-extrabold uppercase tracking-wider">Playlist Veraniega de Fabi</p>
+                        <p id="song-title" class="text-xs sm:text-sm font-bold truncate text-slate-900 dark:text-white">Omar Courtz, Mora & Bad Bunny Mix</p>
+                    </div>
+                    <div class="flex items-center gap-1">
+                        <button id="play-btn" class="w-10 h-10 rounded-full bg-ocean-500 hover:bg-ocean-600 text-white flex items-center justify-center shadow-md transition transform hover:scale-105">
+                            <i id="play-icon" class="fa-solid fa-play text-xs"></i>
+                        </button>
+                    </div>
+                </div>
+                <div id="progress-container" class="w-full bg-slate-200 dark:bg-slate-700 h-2 rounded-full mt-3 overflow-hidden cursor-pointer">
+                    <div id="music-bar" class="bg-gradient-to-r from-ocean-500 to-coral-400 h-full w-0% transition-all duration-150"></div>
+                </div>
+                <audio id="audio-player" src="https://cdn.pixabay.com/download/audio/2022/05/27/audio_1808fbf07a.mp3?filename=summer-tropical-house-114867.mp3" preload="metadata"></audio>
+            </div>
+        </div>
+    </section>
+
+    <!-- SECCIÓN SOBRE MÍ -->
+    <section id="sobre-mi" class="py-20 max-w-6xl mx-auto px-4 sm:px-6">
+        <div class="text-center mb-12">
+            <h2 class="text-3xl font-extrabold font-heading text-slate-900 dark:text-white">Sobre Mí</h2>
+            <div class="w-16 h-1.5 bg-coral-500 mx-auto mt-2 rounded-full"></div>
+        </div>
+
+        <div class="grid md:grid-cols-2 gap-8 items-center">
+            <div class="glassmorphism p-8 rounded-3xl shadow-lg border border-ocean-100 dark:border-slate-800">
+                <div class="text-3xl text-ocean-500 mb-3"><i class="fa-solid fa-quote-left"></i></div>
+                <p class="text-slate-700 dark:text-slate-300 leading-relaxed text-base mb-4">
+                    Soy una chica súper <strong>sociable</strong>, <strong>buena estudiante</strong> y me apasiona sentirme productiva todos los días. 
+                </p>
+                <p class="text-slate-700 dark:text-slate-300 leading-relaxed text-base">
+                    Mi lugar feliz siempre será cerca del <strong>mar y el verano</strong>. Me encanta aprender cosas nuevas, liderar proyectos sociales y pasar tiempo de calidad con mi familia y amigos.
+                </p>
+            </div>
+
+            <!-- TARJETAS HOVER TIGER MARKETING -->
+            <div class="grid grid-cols-2 gap-4">
+                <div class="tiger-card bg-white dark:bg-slate-800 p-6 rounded-2xl shadow border border-slate-100 dark:border-slate-700 text-center">
+                    <i class="fa-solid fa-graduation-cap text-3xl text-ocean-500 mb-2"></i>
+                    <h3 class="font-bold text-lg mb-1 font-heading">3ro Sec.</h3>
+                    <p class="text-xs text-slate-500">Lima, Perú</p>
+                    <span class="tiger-badge inline-block mt-2 px-2.5 py-0.5 text-[10px] bg-ocean-100 dark:bg-ocean-950 text-ocean-600 dark:text-ocean-400 rounded-full font-bold uppercase">Excelente Alumna</span>
+                </div>
+                <div class="tiger-card bg-white dark:bg-slate-800 p-6 rounded-2xl shadow border border-slate-100 dark:border-slate-700 text-center">
+                    <i class="fa-solid fa-bolt text-3xl text-amber-500 mb-2"></i>
+                    <h3 class="font-bold text-lg mb-1 font-heading">Productiva</h3>
+                    <p class="text-xs text-slate-500">Siempre activa</p>
+                    <span class="tiger-badge inline-block mt-2 px-2.5 py-0.5 text-[10px] bg-amber-100 dark:bg-amber-950 text-amber-600 dark:text-amber-400 rounded-full font-bold uppercase">100% Enfocada</span>
+                </div>
+                <div class="tiger-card bg-white dark:bg-slate-800 p-6 rounded-2xl shadow border border-slate-100 dark:border-slate-700 text-center">
+                    <i class="fa-solid fa-sun text-3xl text-coral-500 mb-2"></i>
+                    <h3 class="font-bold text-lg mb-1 font-heading">Summer Lover</h3>
+                    <p class="text-xs text-slate-500">Amo la playa</p>
+                    <span class="tiger-badge inline-block mt-2 px-2.5 py-0.5 text-[10px] bg-rose-100 dark:bg-rose-950 text-rose-600 dark:text-rose-400 rounded-full font-bold uppercase">Vibra Marina</span>
+                </div>
+                <div class="tiger-card bg-white dark:bg-slate-800 p-6 rounded-2xl shadow border border-slate-100 dark:border-slate-700 text-center">
+                    <i class="fa-solid fa-heart text-3xl text-pinkSweet mb-2"></i>
+                    <h3 class="font-bold text-lg mb-1 font-heading">Sociable</h3>
+                    <p class="text-xs text-slate-500">Conexión total</p>
+                    <span class="tiger-badge inline-block mt-2 px-2.5 py-0.5 text-[10px] bg-pink-100 dark:bg-pink-950 text-pink-600 dark:text-pink-400 rounded-full font-bold uppercase">Amigos & ONGs</span>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- SECCIÓN GUSTOS -->
+    <section id="gustos" class="py-20 bg-ocean-100/40 dark:bg-slate-800/50">
+        <div class="max-w-6xl mx-auto px-4 sm:px-6">
+            <div class="text-center mb-12">
+                <h2 class="text-3xl font-extrabold font-heading text-slate-900 dark:text-white">Mis Gustos e Intereses</h2>
+                <div class="w-16 h-1.5 bg-sand-400 mx-auto mt-2 rounded-full"></div>
+            </div>
+
+            <div class="grid md:grid-cols-3 gap-6">
+                <!-- Tarjetas KARAK HANDCRAFTS -->
+                <div class="karak-tile bg-white dark:bg-slate-800 rounded-3xl p-6 shadow-md border border-slate-100 dark:border-slate-700 flex flex-col justify-between">
+                    <div>
+                        <div class="karak-icon w-12 h-12 rounded-2xl bg-rose-100 dark:bg-rose-900/50 text-coral-500 flex items-center justify-center text-2xl mb-4">
+                            <i class="fa-solid fa-music"></i>
+                        </div>
+                        <h3 class="text-xl font-bold mb-2 font-heading">Música de Todo Tipo</h3>
+                        <p class="text-xs text-slate-600 dark:text-slate-300 mb-4 leading-relaxed">
+                            Escucho Pop, Salsa, Bachata, Música en Inglés, Bohemia y Valses peruanos.
+                        </p>
+                    </div>
+                    <div class="bg-slate-50 dark:bg-slate-700/50 p-3 rounded-xl border border-slate-100 dark:border-slate-600">
+                        <span class="text-[10px] font-bold text-ocean-500 uppercase">Top Favoritos:</span>
+                        <p class="text-xs font-semibold text-slate-800 dark:text-slate-200 mt-1">Omar Courtz | Mora | Bad Bunny</p>
+                    </div>
+                </div>
+
+                <div class="karak-tile bg-white dark:bg-slate-800 rounded-3xl p-6 shadow-md border border-slate-100 dark:border-slate-700 flex flex-col justify-between">
+                    <div>
+                        <div class="karak-icon w-12 h-12 rounded-2xl bg-amber-100 dark:bg-amber-900/50 text-amber-600 flex items-center justify-center text-2xl mb-4">
+                            <i class="fa-solid fa-utensils"></i>
+                        </div>
+                        <h3 class="text-xl font-bold mb-2 font-heading">Comida & Postres</h3>
+                        <p class="text-xs text-slate-600 dark:text-slate-300 mb-4 leading-relaxed">
+                            Sabor y buena comida siempre. Me encantan los tallarines y la pizza recién hecha.
+                        </p>
+                    </div>
+                    <div class="bg-slate-50 dark:bg-slate-700/50 p-3 rounded-xl border border-slate-100 dark:border-slate-600">
+                        <span class="text-[10px] font-bold text-coral-500 uppercase">Debilidad Total:</span>
+                        <p class="text-xs font-semibold text-slate-800 dark:text-slate-200 mt-1">Tiramisú & Cheesecake de Maracuyá</p>
+                    </div>
+                </div>
+
+                <div class="karak-tile bg-white dark:bg-slate-800 rounded-3xl p-6 shadow-md border border-slate-100 dark:border-slate-700 flex flex-col justify-between">
+                    <div>
+                        <div class="karak-icon w-12 h-12 rounded-2xl bg-ocean-100 dark:bg-ocean-900/50 text-ocean-500 flex items-center justify-center text-2xl mb-4">
+                            <i class="fa-solid fa-gamepad"></i>
+                        </div>
+                        <h3 class="text-xl font-bold mb-2 font-heading">Pasatiempos</h3>
+                        <p class="text-xs text-slate-600 dark:text-slate-300 mb-4 leading-relaxed">
+                            Disfruto ver Avatar, jugar Roblox, comer helado artesanal y estar cerca del mar.
+                        </p>
+                    </div>
+                    <div class="bg-slate-50 dark:bg-slate-700/50 p-3 rounded-xl border border-slate-100 dark:border-slate-600">
+                        <span class="text-[10px] font-bold text-amber-500 uppercase">Actividad Relax:</span>
+                        <p class="text-xs font-semibold text-slate-800 dark:text-slate-200 mt-1">Helado + Música en la Playa</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- GALERÍA CONTINUA BUFFER -->
+    <section id="galeria" class="py-16 overflow-hidden bg-gradient-to-r from-ocean-500 via-coral-500 to-sand-400">
+        <div class="max-w-6xl mx-auto px-4 text-center mb-6 text-white">
+            <h2 class="text-3xl font-extrabold font-heading">Galería de Fotos & Momentos</h2>
+            <p class="text-[10px] uppercase tracking-widest font-bold mt-1 text-white/90">Pausa al pasar el cursor encima | Carrusel Infinito Buffer</p>
+        </div>
+
+        <div class="buffer-carousel flex overflow-hidden whitespace-nowrap w-full">
+            <div class="animate-buffer-scroll flex space-x-6">
+                <div class="inline-block w-64 bg-white/95 dark:bg-slate-800/95 backdrop-blur p-4 rounded-2xl shadow-lg flex-shrink-0 text-slate-800 dark:text-white">
+                    <img src="https://images.unsplash.com/photo-1507525428034-b723cf961d3e?auto=format&fit=crop&w=600&q=80" class="w-full h-36 object-cover rounded-xl mb-2">
+                    <h4 class="font-bold text-sm font-heading">Días de Verano</h4>
+                    <p class="text-xs text-slate-500 dark:text-slate-400">Playa, sol y brisa marina.</p>
+                </div>
+                <div class="inline-block w-64 bg-white/95 dark:bg-slate-800/95 backdrop-blur p-4 rounded-2xl shadow-lg flex-shrink-0 text-slate-800 dark:text-white">
+                    <img src="https://images.unsplash.com/photo-1543466835-00a7907e9de1?auto=format&fit=crop&w=600&q=80" class="w-full h-36 object-cover rounded-xl mb-2">
+                    <h4 class="font-bold text-sm font-heading">Neguita 🐶</h4>
+                    <p class="text-xs text-slate-500 dark:text-slate-400">Mi perrita fiel en casa.</p>
+                </div>
+                <div class="inline-block w-64 bg-white/95 dark:bg-slate-800/95 backdrop-blur p-4 rounded-2xl shadow-lg flex-shrink-0 text-slate-800 dark:text-white">
+                    <img src="https://images.unsplash.com/photo-1559027615-cd4628902d4a?auto=format&fit=crop&w=600&q=80" class="w-full h-36 object-cover rounded-xl mb-2">
+                    <h4 class="font-bold text-sm font-heading">Magic Hearts</h4>
+                    <p class="text-xs text-slate-500 dark:text-slate-400">Liderando ayuda social.</p>
+                </div>
+                <div class="inline-block w-64 bg-white/95 dark:bg-slate-800/95 backdrop-blur p-4 rounded-2xl shadow-lg flex-shrink-0 text-slate-800 dark:text-white">
+                    <img src="https://images.unsplash.com/photo-1533134242443-d4fd215305ad?auto=format&fit=crop&w=600&q=80" class="w-full h-36 object-cover rounded-xl mb-2">
+                    <h4 class="font-bold text-sm font-heading">Postres Favoritos</h4>
+                    <p class="text-xs text-slate-500 dark:text-slate-400">Cheesecake de maracuyá.</p>
+                </div>
+                <!-- Repetición para Loop Perfecto -->
+                <div class="inline-block w-64 bg-white/95 dark:bg-slate-800/95 backdrop-blur p-4 rounded-2xl shadow-lg flex-shrink-0 text-slate-800 dark:text-white">
+                    <img src="https://images.unsplash.com/photo-1507525428034-b723cf961d3e?auto=format&fit=crop&w=600&q=80" class="w-full h-36 object-cover rounded-xl mb-2">
+                    <h4 class="font-bold text-sm font-heading">Días de Verano</h4>
+                    <p class="text-xs text-slate-500 dark:text-slate-400">Playa, sol y brisa marina.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- NUEVA SECCIÓN INTERACTIVA: COFRE DE RECUERDOS & CÁPSULA DEL TIEMPO -->
+    <section id="cofre" class="py-20 max-w-6xl mx-auto px-4 sm:px-6">
+        <div class="text-center mb-12">
+            <span class="px-3 py-1 rounded-full text-[10px] font-bold uppercase tracking-widest bg-coral-100 dark:bg-rose-950 text-coral-500">Cápsula 3D</span>
+            <h2 class="text-3xl font-extrabold font-heading text-slate-900 dark:text-white mt-2">Cofre de Recuerdos & Sueños</h2>
+            <p class="text-xs text-slate-500 mt-1">Pasa el mouse sobre las tarjetas para darles la vuelta y descubrir el contenido</p>
+        </div>
+
+        <div class="grid md:grid-cols-3 gap-8">
+            <!-- Carta 1: Sueño Berkeley -->
+            <div class="memory-card h-80 w-full cursor-pointer">
+                <div class="memory-inner relative w-full h-full rounded-3xl shadow-xl">
+                    <div class="memory-front absolute inset-0 bg-white dark:bg-slate-800 p-6 rounded-3xl border-2 border-ocean-400/40 flex flex-col justify-between items-center text-center">
+                        <div class="w-16 h-16 rounded-full bg-ocean-100 text-ocean-600 flex items-center justify-center text-3xl mt-4">
+                            <i class="fa-solid fa-graduation-cap"></i>
+                        </div>
+                        <div>
+                            <span class="text-[10px] font-bold text-ocean-500 uppercase">Meta Principal</span>
+                            <h3 class="text-xl font-bold font-heading mt-1">Ingreso a UC Berkeley</h3>
+                        </div>
+                        <p class="text-xs text-slate-400">Gira para ver el plan ✨</p>
+                    </div>
+                    <div class="memory-back absolute inset-0 bg-gradient-to-br from-ocean-500 to-ocean-600 p-6 rounded-3xl text-white flex flex-col justify-between text-left">
+                        <div>
+                            <h4 class="font-extrabold font-heading text-lg mb-2">Roadmap Universitario 🎓</h4>
+                            <ul class="text-xs space-y-2 opacity-95">
+                                <li>• Promedio sobresaliente en 3ro y 4to sec.</li>
+                                <li>• Dominio avanzado de inglés (TOEFL C1).</li>
+                                <li>• Enfoque en proyectos STEM y liderazgo.</li>
+                            </ul>
+                        </div>
+                        <span class="text-[10px] font-bold uppercase tracking-widest text-amber-300">California, EE.UU.</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Carta 2: Magic Hearts -->
+            <div class="memory-card h-80 w-full cursor-pointer">
+                <div class="memory-inner relative w-full h-full rounded-3xl shadow-xl">
+                    <div class="memory-front absolute inset-0 bg-white dark:bg-slate-800 p-6 rounded-3xl border-2 border-coral-400/40 flex flex-col justify-between items-center text-center">
+                        <div class="w-16 h-16 rounded-full bg-rose-100 text-coral-500 flex items-center justify-center text-3xl mt-4">
+                            <i class="fa-solid fa-heart-pulse"></i>
+                        </div>
+                        <div>
+                            <span class="text-[10px] font-bold text-coral-500 uppercase">Proyección Social</span>
+                            <h3 class="text-xl font-bold font-heading mt-1">Magic Hearts ONG</h3>
+                        </div>
+                        <p class="text-xs text-slate-400">Gira para ver el impacto ❤️</p>
+                    </div>
+                    <div class="memory-back absolute inset-0 bg-gradient-to-br from-coral-500 to-pinkSweet p-6 rounded-3xl text-white flex flex-col justify-between text-left">
+                        <div>
+                            <h4 class="font-extrabold font-heading text-lg mb-2">Liderazgo & Ayuda 🤝</h4>
+                            <p class="text-xs leading-relaxed opacity-95">
+                                Proyecto impulsado con pasión para llevar alimentos, talleres y alegría a niños de escasos recursos.
+                            </p>
+                        </div>
+                        <span class="text-[10px] font-bold uppercase tracking-widest text-yellow-200">Impacto Positivo Lima</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Carta 3: Amor por el Verano -->
+            <div class="memory-card h-80 w-full cursor-pointer">
+                <div class="memory-inner relative w-full h-full rounded-3xl shadow-xl">
+                    <div class="memory-front absolute inset-0 bg-white dark:bg-slate-800 p-6 rounded-3xl border-2 border-sand-400/40 flex flex-col justify-between items-center text-center">
+                        <div class="w-16 h-16 rounded-full bg-amber-100 text-amber-600 flex items-center justify-center text-3xl mt-4">
+                            <i class="fa-solid fa-sun"></i>
+                        </div>
+                        <div>
+                            <span class="text-[10px] font-bold text-amber-500 uppercase">Lugar Feliz</span>
+                            <h3 class="text-xl font-bold font-heading mt-1">El Mar & Atardeceres</h3>
+                        </div>
+                        <p class="text-xs text-slate-400">Gira para sentir la vibra ☀️</p>
+                    </div>
+                    <div class="memory-back absolute inset-0 bg-gradient-to-br from-amber-400 to-orange-400 p-6 rounded-3xl text-slate-900 flex flex-col justify-between text-left">
+                        <div>
+                            <h4 class="font-extrabold font-heading text-lg mb-2">Summer Energy 🌊</h4>
+                            <p class="text-xs leading-relaxed font-medium">
+                                Nada supera un día de playa escuchando música en compañía de familia, amigos y Neguita.
+                            </p>
+                        </div>
+                        <span class="text-[10px] font-bold uppercase tracking-widest text-white">Buena Vibra Siempre</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- VIBES STATION -->
+    <section id="vibes" class="py-20 bg-ocean-100/30 dark:bg-slate-800/40">
+        <div class="max-w-4xl mx-auto px-4 text-center">
+            <span class="px-3 py-1 rounded-full text-[10px] font-bold uppercase tracking-widest bg-ocean-100 dark:bg-ocean-950 text-ocean-600 dark:text-ocean-400">Interactive Mood</span>
+            <h2 class="text-3xl font-extrabold font-heading text-slate-900 dark:text-white mt-2">Estación de Vibras</h2>
+            <p class="text-xs text-slate-500 mt-1 mb-8">Elige la vibra del momento para transformar el mensaje de inspiración</p>
+
+            <div class="flex flex-wrap justify-center gap-3 mb-8">
+                <button onclick="setVibe('sea')" class="wave-btn px-6 py-2.5 rounded-full text-xs font-bold bg-white dark:bg-slate-800 text-slate-800 dark:text-white shadow">🌊 Vibra Veraniega</button>
+                <button onclick="setVibe('focus')" class="wave-btn px-6 py-2.5 rounded-full text-xs font-bold bg-white dark:bg-slate-800 text-slate-800 dark:text-white shadow">⚡ Super Motivación</button>
+                <button onclick="setVibe('heart')" class="wave-btn px-6 py-2.5 rounded-full text-xs font-bold bg-white dark:bg-slate-800 text-slate-800 dark:text-white shadow">💖 Modo Liderazgo</button>
+            </div>
+
+            <div id="vibe-card" class="glassmorphism p-8 rounded-3xl shadow-xl transition-all duration-500 border border-white/60">
+                <div id="vibe-icon-box" class="w-16 h-16 mx-auto rounded-2xl bg-ocean-500 text-white flex items-center justify-center text-3xl shadow-md mb-4">
+                    <i id="vibe-icon" class="fa-solid fa-umbrella-beach"></i>
+                </div>
+                <h3 id="vibe-title" class="text-2xl font-extrabold font-heading mb-2">Energía del Mar & Brisa</h3>
+                <p id="vibe-quote" class="text-sm font-medium text-slate-700 dark:text-slate-300 max-w-lg mx-auto leading-relaxed">
+                    "Nada recarga más el alma que el sonido de las olas, el helado artesanal y la buena música en un día de verano."
+                </p>
+            </div>
+        </div>
+    </section>
+
+    <!-- RINCÓN DE NEGUITA (PERRITA 🐶) CON HUELLITAS ROSADITAS -->
+    <section id="neguita" class="py-20 max-w-4xl mx-auto px-4 text-center">
+        <div class="bg-white dark:bg-slate-800 p-8 rounded-3xl shadow-xl border border-rose-200 dark:border-slate-700">
+            <div class="w-28 h-28 mx-auto rounded-full overflow-hidden border-4 border-pinkSweet shadow-lg mb-4">
+                <img src="https://images.unsplash.com/photo-1543466835-00a7907e9de1?auto=format&fit=crop&w=600&q=80" alt="Neguita Perrita" class="w-full h-full object-cover">
+            </div>
+            <h3 class="text-2xl font-extrabold font-heading">Neguita 🐶</h3>
+            <p class="text-xs font-bold text-coral-500 uppercase tracking-wider mt-0.5">Mi Perrita Fiel & Compañera de Vida</p>
+            <p class="text-xs text-slate-600 dark:text-slate-300 mt-3 max-w-md mx-auto leading-relaxed">
+                Mi hermosa perrita Neguita llena la casa de alegría, juegos y amor incondicional todos los días.
+            </p>
+            <button onclick="petNeguita(event)" class="wave-btn mt-6 px-8 py-3.5 rounded-full bg-pinkSweet text-white font-bold text-xs uppercase tracking-wider shadow-lg inline-flex items-center gap-2">
+                <i class="fa-solid fa-paw text-pink-200"></i> ¡Dar Cariños! <span id="pet-count" class="bg-white text-pinkSweet px-2.5 py-0.5 rounded-full text-[11px] font-extrabold">0</span>
+            </button>
+        </div>
+    </section>
+
+    <!-- FOOTER -->
+    <footer class="bg-slate-900 text-white py-10 border-t border-slate-800 text-center">
+        <h3 class="font-black text-xl tracking-widest text-coral-400 font-heading mb-1">FABIANA SUASNABAR</h3>
+        <p class="text-xs text-slate-400 mb-4 font-medium">"dream big, laugh hard and love so much"</p>
+        <p class="text-[11px] text-slate-500">© 2026 Fabiana Suasnabar • Lima, Perú • Todos los derechos reservados.</p>
+    </footer>
+
+    <!-- SCRIPTS -->
+    <script>
+        // Transición de Ola Intro
+        window.addEventListener('load', () => {
+            setTimeout(() => {
+                document.getElementById('intro-wave').classList.add('slide-up');
+            }, 1000);
+        });
+
+        function triggerWaveIntro() {
+            const wave = document.getElementById('intro-wave');
+            wave.classList.remove('slide-up');
+            setTimeout(() => wave.classList.add('slide-up'), 1200);
+        }
+
+        // CAMBIO DÍA / NOCHE REAL Y RADICAL
+        const themeBtn = document.getElementById('theme-toggle');
+        const themeIcon = document.getElementById('theme-icon');
+        themeBtn.addEventListener('click', () => {
+            document.documentElement.classList.toggle('dark');
+            const isDark = document.documentElement.classList.contains('dark');
+            themeIcon.className = isDark ? 'fa-solid fa-moon text-lg text-sky-300' : 'fa-solid fa-sun text-lg text-amber-500';
+        });
+
+        // Menú Móvil
+        document.getElementById('mobile-menu-btn').addEventListener('click', () => {
+            document.getElementById('mobile-menu').classList.toggle('hidden');
+        });
+
+        // REPRODUCTOR DE MÚSICA CON AUDIO REAL
+        const audio = document.getElementById('audio-player');
+        const playBtn = document.getElementById('play-btn');
+        const playIcon = document.getElementById('play-icon');
+        const musicDisc = document.getElementById('music-disc');
+        const musicBar = document.getElementById('music-bar');
+        const progressContainer = document.getElementById('progress-container');
+
+        playBtn.addEventListener('click', () => {
+            if (audio.paused) {
+                audio.play();
+                playIcon.className = 'fa-solid fa-pause text-xs';
+                musicDisc.classList.add('animate-spin');
+            } else {
+                audio.pause();
+                playIcon.className = 'fa-solid fa-play text-xs';
+                musicDisc.classList.remove('animate-spin');
+            }
+        });
+
+        audio.addEventListener('timeupdate', () => {
+            if (audio.duration) {
+                const pct = (audio.currentTime / audio.duration) * 100;
+                musicBar.style.width = pct + '%';
+            }
+        });
+
+        progressContainer.addEventListener('click', (e) => {
+            const width = progressContainer.clientWidth;
+            const clickX = e.offsetX;
+            if (audio.duration) {
+                audio.currentTime = (clickX / width) * audio.duration;
+            }
+        });
+
+        // VIBES STATION
+        const vibes = {
+            sea: { title: "Energía del Mar & Brisa", quote: '"Nada recarga más el alma que el sonido de las olas, el helado artesanal y la buena música en un día de verano."', icon: "fa-umbrella-beach", bg: "bg-ocean-500" },
+            focus: { title: "Mentalidad Inquebrantable", quote: '"100% enfocada en mis metas. La productividad y la constancia son la clave diaria."', icon: "fa-bolt", bg: "bg-amber-500" },
+            heart: { title: "Impactar & Servir", quote: '"Creando impacto positivo y guiando siempre con empatía y corazón."', icon: "fa-crown", bg: "bg-coral-500" }
+        };
+
+        function setVibe(type) {
+            const v = vibes[type];
+            document.getElementById('vibe-title').textContent = v.title;
+            document.getElementById('vibe-quote').textContent = v.quote;
+            const box = document.getElementById('vibe-icon-box');
+            box.className = `w-16 h-16 mx-auto rounded-2xl ${v.bg} text-white flex items-center justify-center text-3xl shadow-md mb-4 transition-all`;
+            document.getElementById('vibe-icon').className = `fa-solid ${v.icon}`;
+        }
+
+        // MIMOS A NEGUITA CON HUELLITAS ROSADITAS Y CORAZONES FLOTANTES
+        let petCount = 0;
+        function petNeguita(e) {
+            petCount++;
+            document.getElementById('pet-count').textContent = petCount;
+            
+            for (let i = 0; i < 6; i++) {
+                const paw = document.createElement('div');
+                paw.className = 'floating-paw text-2xl text-pinkSweet';
+                // Huellitas rosadas de perro y corazones
+                paw.innerHTML = i % 2 === 0 ? '🐾' : '💖';
+                paw.style.left = (e.clientX + (Math.random() * 80 - 40)) + 'px';
+                paw.style.top = (e.clientY + (Math.random() * 80 - 40)) + 'px';
+                document.body.appendChild(paw);
+                setTimeout(() => paw.remove(), 2000);
+            }
+        }
+    </script>
+</body>
+</html>
